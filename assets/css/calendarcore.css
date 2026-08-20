@@ -1,0 +1,650 @@
+/*
+ * CalendarCore front end styles.
+ *
+ * The palette is derived from the text colour the theme already gives us, so
+ * the calendar adapts to any theme — light, dark or anything in between —
+ * without guessing. theme.json presets win when the theme provides them, and
+ * prefers-color-scheme only nudges the accent, it never repaints the block:
+ * a light theme stays light even for a visitor whose system is set to dark.
+ */
+
+.xodw-cc {
+	--xodw-cc-accent: var( --wp--preset--color--primary, #2563eb );
+	--xodw-cc-accent-contrast: var( --wp--preset--color--base, #ffffff );
+	--xodw-cc-text: currentColor;
+
+	/* Fallbacks first: browsers without color-mix() keep these. */
+	--xodw-cc-muted: inherit;
+	--xodw-cc-bg: transparent;
+	--xodw-cc-surface: transparent;
+	--xodw-cc-border: rgba( 128, 128, 128, 0.32 );
+
+	--xodw-cc-muted: color-mix( in srgb, currentColor 62%, transparent );
+	--xodw-cc-surface: color-mix( in srgb, currentColor 4%, transparent );
+	--xodw-cc-border: color-mix( in srgb, currentColor 18%, transparent );
+
+	--xodw-cc-radius: 8px;
+	--xodw-cc-gap: 0.5rem;
+
+	box-sizing: border-box;
+	color: inherit;
+	container-type: inline-size;
+	font-size: inherit;
+}
+
+.xodw-cc *,
+.xodw-cc *::before,
+.xodw-cc *::after {
+	box-sizing: inherit;
+}
+
+@media ( prefers-color-scheme: dark ) {
+	.xodw-cc:not( .xodw-cc--light ) {
+		/* A brighter accent reads better on dark themes; the surrounding
+		   colours keep coming from the theme. */
+		--xodw-cc-accent: var( --wp--preset--color--primary, #60a5fa );
+		--xodw-cc-accent-contrast: #0b0d10;
+	}
+}
+
+/* Opt in from the settings screen: an explicit palette either way. */
+.xodw-cc--dark {
+	--xodw-cc-text: #e6e8eb;
+	--xodw-cc-bg: #16181d;
+	--xodw-cc-surface: #1d2027;
+	--xodw-cc-border: rgba( 230, 232, 235, 0.18 );
+	--xodw-cc-muted: rgba( 230, 232, 235, 0.62 );
+	--xodw-cc-accent: #60a5fa;
+	--xodw-cc-accent-contrast: #0b0d10;
+
+	background: var( --xodw-cc-bg );
+	color: var( --xodw-cc-text );
+}
+
+.xodw-cc--light {
+	--xodw-cc-text: #1f2328;
+	--xodw-cc-bg: #ffffff;
+	--xodw-cc-surface: #f6f7f8;
+	--xodw-cc-border: rgba( 31, 35, 40, 0.16 );
+	--xodw-cc-muted: rgba( 31, 35, 40, 0.62 );
+
+	background: var( --xodw-cc-bg );
+	color: var( --xodw-cc-text );
+}
+
+.xodw-cc.is-loading {
+	opacity: 0.6;
+	transition: opacity 120ms ease-out;
+}
+
+/* Toolbar ---------------------------------------------------------------- */
+
+.xodw-cc__toolbar {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var( --xodw-cc-gap );
+	justify-content: space-between;
+	margin-bottom: 1rem;
+}
+
+.xodw-cc__label {
+	font-size: 1.125rem;
+	line-height: 1.2;
+	margin: 0;
+	order: -1;
+	flex: 1 1 auto;
+}
+
+.xodw-cc__nav,
+.xodw-cc__views {
+	display: flex;
+	gap: 0.25rem;
+}
+
+.xodw-cc__btn {
+	background: var( --xodw-cc-surface );
+	border: 1px solid var( --xodw-cc-border );
+	border-radius: var( --xodw-cc-radius );
+	color: inherit;
+	cursor: pointer;
+	display: inline-block;
+	font: inherit;
+	font-size: 0.875rem;
+	line-height: 1.2;
+	padding: 0.45em 0.8em;
+	text-decoration: none;
+}
+
+.xodw-cc__btn:hover,
+.xodw-cc__btn:focus-visible {
+	border-color: var( --xodw-cc-accent );
+	color: var( --xodw-cc-accent );
+}
+
+.xodw-cc__btn.is-active,
+.xodw-cc__btn--primary {
+	background: var( --xodw-cc-accent );
+	border-color: var( --xodw-cc-accent );
+	color: var( --xodw-cc-accent-contrast );
+}
+
+.xodw-cc__btn--primary:hover {
+	color: var( --xodw-cc-accent-contrast );
+	filter: brightness( 1.08 );
+}
+
+.xodw-cc__btn--ghost {
+	background: transparent;
+}
+
+.xodw-cc__btn--icon {
+	min-width: 2.2em;
+	text-align: center;
+}
+
+.xodw-cc__btn--small {
+	font-size: 0.8125rem;
+	padding: 0.35em 0.7em;
+}
+
+.xodw-cc__btn[disabled] {
+	cursor: not-allowed;
+	opacity: 0.55;
+}
+
+.xodw-cc__tznote,
+.xodw-cc__empty {
+	color: var( --xodw-cc-muted );
+	font-size: 0.8125rem;
+	margin: 0.75rem 0 0;
+}
+
+.xodw-cc__more {
+	margin: 1rem 0 0;
+	text-align: center;
+}
+
+/* Month grid ------------------------------------------------------------- */
+
+.xodw-cc-month__head,
+.xodw-cc-month__grid {
+	display: grid;
+	grid-template-columns: repeat( 7, minmax( 0, 1fr ) );
+	gap: 0;
+}
+
+.xodw-cc-month__weekday {
+	color: var( --xodw-cc-muted );
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	padding: 0.35rem 0.4rem;
+	text-transform: uppercase;
+}
+
+.xodw-cc-month__grid {
+	border: 1px solid var( --xodw-cc-border );
+	border-radius: var( --xodw-cc-radius );
+	overflow: hidden;
+}
+
+.xodw-cc-day {
+	border-left: 1px solid var( --xodw-cc-border );
+	border-top: 1px solid var( --xodw-cc-border );
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	min-height: 5.5rem;
+	padding: 0.35rem;
+}
+
+/* Only inner lines: the container already draws the outline. */
+.xodw-cc-day:nth-child( 7n + 1 ) {
+	border-left: 0;
+}
+
+.xodw-cc-day:nth-child( -n + 7 ) {
+	border-top: 0;
+}
+
+.xodw-cc-day.is-outside {
+	background: var( --xodw-cc-surface );
+}
+
+.xodw-cc-day.is-outside .xodw-cc-day__num {
+	opacity: 0.45;
+}
+
+.xodw-cc-day.is-today .xodw-cc-day__num span[aria-hidden] {
+	background: var( --xodw-cc-accent );
+	border-radius: 50%;
+	color: var( --xodw-cc-accent-contrast );
+	display: inline-grid;
+	height: 1.7em;
+	place-items: center;
+	width: 1.7em;
+}
+
+.xodw-cc-day__num {
+	color: inherit;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.xodw-cc-day__events,
+.xodw-cc-week__events {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.xodw-cc-chip {
+	background: color-mix( in srgb, var( --xodw-cc-accent ) 12%, transparent );
+	border-left: 3px solid var( --xodw-cc-accent );
+	border-radius: 4px;
+	color: inherit;
+	display: block;
+	font-size: 0.75rem;
+	line-height: 1.35;
+	overflow: hidden;
+	padding: 0.15rem 0.35rem;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.xodw-cc-chip:hover,
+.xodw-cc-chip:focus-visible {
+	background: color-mix( in srgb, var( --xodw-cc-accent ) 22%, transparent );
+}
+
+.xodw-cc-chip.is-past {
+	border-left-color: var( --xodw-cc-border );
+	opacity: 0.65;
+}
+
+.xodw-cc-chip.is-now {
+	border-left-width: 4px;
+	font-weight: 600;
+}
+
+.xodw-cc-chip .xodw-cc-time {
+	font-variant-numeric: tabular-nums;
+	margin-right: 0.3em;
+	opacity: 0.8;
+}
+
+.xodw-cc-chip__venue {
+	display: block;
+	font-size: 0.6875rem;
+	opacity: 0.7;
+}
+
+/* Week view -------------------------------------------------------------- */
+
+.xodw-cc-week {
+	display: grid;
+	gap: 0;
+	grid-template-columns: repeat( 7, minmax( 0, 1fr ) );
+	border: 1px solid var( --xodw-cc-border );
+	border-radius: var( --xodw-cc-radius );
+	overflow: hidden;
+}
+
+.xodw-cc-week__day {
+	border-left: 1px solid var( --xodw-cc-border );
+	min-height: 7rem;
+	padding: 0.5rem;
+}
+
+.xodw-cc-week__day:first-child {
+	border-left: 0;
+}
+
+.xodw-cc-week__day.is-today {
+	background: color-mix( in srgb, var( --xodw-cc-accent ) 8%, transparent );
+}
+
+.xodw-cc-week__title {
+	font-size: 0.8125rem;
+	margin: 0 0 0.4rem;
+}
+
+.xodw-cc-week__title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.xodw-cc-week__dow {
+	color: var( --xodw-cc-muted );
+	text-transform: uppercase;
+}
+
+.xodw-cc-week__empty {
+	color: var( --xodw-cc-muted );
+	font-size: 0.75rem;
+	margin: 0;
+}
+
+/* List and day views ----------------------------------------------------- */
+
+.xodw-cc-list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.xodw-cc-list__sep {
+	border-bottom: 1px solid var( --xodw-cc-border );
+	color: var( --xodw-cc-muted );
+	font-size: 0.8125rem;
+	font-weight: 600;
+	padding-bottom: 0.25rem;
+}
+
+.xodw-cc-card {
+	border: 1px solid var( --xodw-cc-border );
+	border-radius: var( --xodw-cc-radius );
+	display: flex;
+	gap: 1rem;
+	padding: 0.85rem;
+}
+
+.xodw-cc-card.is-past {
+	opacity: 0.7;
+}
+
+.xodw-cc-card__media {
+	flex: 0 0 clamp( 5rem, 22%, 10rem );
+}
+
+.xodw-cc-card__media img {
+	aspect-ratio: 4 / 3;
+	border-radius: 6px;
+	display: block;
+	height: auto;
+	object-fit: cover;
+	width: 100%;
+}
+
+.xodw-cc-card__body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.xodw-cc-card__title {
+	font-size: 1.0625rem;
+	line-height: 1.25;
+	margin: 0 0 0.25rem;
+}
+
+.xodw-cc-card__title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.xodw-cc-card__title a:hover {
+	text-decoration: underline;
+}
+
+.xodw-cc-card__meta {
+	color: var( --xodw-cc-muted );
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 0.8125rem;
+	gap: 0.15rem 0.75rem;
+	margin: 0 0 0.35rem;
+}
+
+.xodw-cc-card__excerpt {
+	font-size: 0.875rem;
+	margin: 0 0 0.5rem;
+}
+
+.xodw-cc-card__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin: 0;
+}
+
+/* Single event ----------------------------------------------------------- */
+
+.xodw-cc-single__meta {
+	background: var( --xodw-cc-surface );
+	border: 1px solid var( --xodw-cc-border );
+	border-radius: var( --xodw-cc-radius );
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin: 1.5rem 0;
+	padding: 1rem;
+}
+
+.xodw-cc-single__row {
+	display: grid;
+	gap: 0.15rem 1rem;
+	grid-template-columns: minmax( 6rem, 9rem ) 1fr;
+}
+
+.xodw-cc-single__row dt {
+	color: var( --xodw-cc-muted );
+	font-size: 0.8125rem;
+	font-weight: 600;
+	margin: 0;
+}
+
+.xodw-cc-single__row dd {
+	margin: 0;
+}
+
+.xodw-cc-single__tz {
+	color: var( --xodw-cc-muted );
+	font-size: 0.8125rem;
+}
+
+.xodw-cc-addto {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin: 0 0 1.5rem;
+}
+
+.xodw-cc-addto__label {
+	color: var( --xodw-cc-muted );
+	font-size: 0.8125rem;
+}
+
+.xodw-cc-dates ul {
+	list-style: none;
+	margin: 0 0 1.5rem;
+	padding: 0;
+}
+
+.xodw-cc-dates li {
+	border-bottom: 1px solid var( --xodw-cc-border );
+	padding: 0.35rem 0;
+}
+
+.xodw-cc-dates li.is-current {
+	font-weight: 600;
+}
+
+/* RSVP ------------------------------------------------------------------- */
+
+.xodw-cc-rsvp {
+	border: 1px solid var( --xodw-cc-border );
+	border-radius: var( --xodw-cc-radius );
+	margin: 1.5rem 0;
+	padding: 1rem;
+}
+
+.xodw-cc-rsvp__title {
+	font-size: 1rem;
+	margin: 0 0 0.35rem;
+}
+
+.xodw-cc-rsvp__count {
+	color: var( --xodw-cc-muted );
+	font-size: 0.8125rem;
+	margin: 0 0 0.75rem;
+	min-height: 1.2em;
+}
+
+.xodw-cc-rsvp__form {
+	display: grid;
+	gap: 0.6rem;
+	grid-template-columns: repeat( auto-fit, minmax( 12rem, 1fr ) );
+}
+
+.xodw-cc-rsvp__field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	margin: 0;
+}
+
+.xodw-cc-rsvp__field label {
+	font-size: 0.8125rem;
+	font-weight: 600;
+}
+
+.xodw-cc-rsvp__field input {
+	background: var( --xodw-cc-surface );
+	border: 1px solid var( --xodw-cc-border );
+	border-radius: 6px;
+	color: inherit;
+	font: inherit;
+	padding: 0.45em 0.6em;
+	width: 100%;
+}
+
+.xodw-cc-rsvp__submit {
+	align-self: end;
+	grid-column: 1 / -1;
+	margin: 0;
+}
+
+.xodw-cc-rsvp__hp {
+	height: 0;
+	margin: 0;
+	overflow: hidden;
+	position: absolute;
+	width: 0;
+}
+
+.xodw-cc-rsvp__message,
+.xodw-cc-rsvp__notice {
+	font-size: 0.875rem;
+	grid-column: 1 / -1;
+	margin: 0;
+}
+
+.xodw-cc-rsvp__message:empty {
+	display: none;
+}
+
+.xodw-cc-rsvp__message.is-success,
+.xodw-cc-rsvp__notice.is-success {
+	color: #15803d;
+}
+
+.xodw-cc-rsvp__message.is-error,
+.xodw-cc-rsvp__notice.is-error {
+	color: #b91c1c;
+}
+
+/* Small screens ---------------------------------------------------------- */
+
+@container ( max-width: 640px ) {
+	.xodw-cc-week {
+		grid-template-columns: 1fr;
+	}
+
+	.xodw-cc-week__day {
+		border-left: 0;
+		border-top: 1px solid var( --xodw-cc-border );
+	}
+
+	.xodw-cc-week__day:first-child {
+		border-top: 0;
+	}
+
+	.xodw-cc-card {
+		flex-direction: column;
+	}
+
+	.xodw-cc-card__media {
+		flex-basis: auto;
+	}
+}
+
+@media ( max-width: 640px ) {
+	.xodw-cc-month__weekday {
+		font-size: 0.625rem;
+		padding: 0.25rem 0.15rem;
+		text-align: center;
+	}
+
+	.xodw-cc-day {
+		gap: 0.15rem;
+		min-height: 3.2rem;
+		padding: 0.2rem;
+	}
+
+	.xodw-cc-day__num {
+		text-align: center;
+	}
+
+	/* Chips collapse into dots: the day view opens the details. */
+	.xodw-cc--month .xodw-cc-chip {
+		border-left: 0;
+		border-radius: 50%;
+		height: 6px;
+		margin: 0 auto;
+		overflow: hidden;
+		padding: 0;
+		text-indent: -9999px;
+		width: 6px;
+		background: var( --xodw-cc-accent );
+	}
+
+	.xodw-cc--month .xodw-cc-day__events {
+		align-items: center;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 3px;
+		justify-content: center;
+	}
+
+	.xodw-cc__label {
+		flex-basis: 100%;
+	}
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.xodw-cc.is-loading {
+		transition: none;
+	}
+}
+
+.xodw-cc .screen-reader-text {
+	border: 0;
+	clip-path: inset( 50% );
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}

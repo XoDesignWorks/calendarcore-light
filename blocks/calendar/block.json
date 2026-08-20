@@ -1,0 +1,68 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xodw-cc/calendar",
+	"version": "1.0.0",
+	"title": "Event calendar",
+	"category": "xodw-cc",
+	"icon": "calendar-alt",
+	"description": "A month, week, day or list view of your events.",
+	"keywords": [ "events", "calendar", "agenda", "schedule" ],
+	"textdomain": "calendarcore",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true
+		}
+	},
+	"attributes": {
+		"view": {
+			"type": "string",
+			"default": "month"
+		},
+		"date": {
+			"type": "string",
+			"default": ""
+		},
+		"venue": {
+			"type": "string",
+			"default": ""
+		},
+		"organizer": {
+			"type": "string",
+			"default": ""
+		},
+		"limit": {
+			"type": "number",
+			"default": 12
+		},
+		"showToolbar": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPast": {
+			"type": "boolean",
+			"default": false
+		},
+		"onePerEvent": {
+			"type": "boolean",
+			"default": false
+		},
+		"showImages": {
+			"type": "boolean",
+			"default": true
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "xodw-cc-blocks",
+	"style": "xodw-cc",
+	"viewScript": "xodw-cc"
+}

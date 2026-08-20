@@ -1,0 +1,75 @@
+/* CalendarCore admin styles. Deliberately small: core styles do the work. */
+
+.xodw-cc-admin__grid {
+	display: grid;
+	gap: 0 1rem;
+	grid-template-columns: repeat( auto-fit, minmax( 12rem, 1fr ) );
+}
+
+.xodw-cc-admin__field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin: 0 0 0.85rem;
+}
+
+.xodw-cc-admin__field > label,
+.xodw-cc-admin__field > legend {
+	font-weight: 600;
+}
+
+.xodw-cc-admin__field input[type="text"],
+.xodw-cc-admin__field input[type="url"],
+.xodw-cc-admin__field input[type="date"],
+.xodw-cc-admin__field input[type="time"],
+.xodw-cc-admin__field input[type="number"],
+.xodw-cc-admin__field select {
+	max-width: 24rem;
+}
+
+.xodw-cc-admin__check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	margin-right: 0.85rem;
+}
+
+.xodw-cc-admin__hint {
+	color: #646970;
+	font-size: 12px;
+}
+
+.xodw-cc-admin__badge {
+	background: #f0f0f1;
+	border-radius: 3px;
+	color: #646970;
+	font-size: 11px;
+	padding: 1px 5px;
+}
+
+.xodw-cc-admin__recurrence[hidden],
+.xodw-cc-admin [hidden] {
+	display: none;
+}
+
+.xodw-cc-admin__recurrence {
+	background: #f6f7f7;
+	border-radius: 4px;
+	padding: 0.85rem 0.85rem 0.1rem;
+}
+
+.xodw-cc-admin__upsell ul {
+	list-style: disc;
+	margin: 0 0 0.85rem 1.2rem;
+}
+
+.xodw-cc-admin__upsell.card {
+	max-width: 34rem;
+	padding: 0.5rem 1.25rem 1rem;
+}
+
+.xodw-cc-admin__dismiss {
+	color: #646970;
+	font-size: 12px;
+	text-decoration: none;
+}

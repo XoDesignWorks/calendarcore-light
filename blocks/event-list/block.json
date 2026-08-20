@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "xodw-cc/event-list",
+	"version": "1.0.0",
+	"title": "Event list",
+	"category": "xodw-cc",
+	"icon": "list-view",
+	"description": "Upcoming events as a compact list, optionally filtered by venue or organizer.",
+	"keywords": [ "events", "upcoming", "list" ],
+	"textdomain": "calendarcore",
+	"supports": {
+		"html": false,
+		"align": [ "wide" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true
+		}
+	},
+	"attributes": {
+		"date": {
+			"type": "string",
+			"default": ""
+		},
+		"venue": {
+			"type": "string",
+			"default": ""
+		},
+		"organizer": {
+			"type": "string",
+			"default": ""
+		},
+		"limit": {
+			"type": "number",
+			"default": 5
+		},
+		"showToolbar": {
+			"type": "boolean",
+			"default": false
+		},
+		"showPast": {
+			"type": "boolean",
+			"default": false
+		},
+		"onePerEvent": {
+			"type": "boolean",
+			"default": true
+		},
+		"showImages": {
+			"type": "boolean",
+			"default": false
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "xodw-cc-blocks",
+	"style": "xodw-cc",
+	"viewScript": "xodw-cc"
+}
