@@ -185,6 +185,9 @@ class ImportPage {
 	 * @return string|\WP_Error
 	 */
 	private function read_input( Importer $importer ) {
+		// The nonce and the capability were verified by handle() before this
+		// method is reached; the sniff only sees one function at a time.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$url = isset( $_POST['url'] ) ? sanitize_url( wp_unslash( $_POST['url'] ) ) : '';
 
 		if ( empty( $_FILES['ics']['name'] ) && '' === $url ) {
@@ -225,6 +228,7 @@ class ImportPage {
 		}
 
 		return $content;
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**

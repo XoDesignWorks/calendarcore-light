@@ -100,6 +100,28 @@
 .xodw-cc__views {
 	display: flex;
 	gap: 0.25rem;
+	/* Never rewrap inside a group: a late web font changes text metrics, and a
+	   toolbar that reflows because of it is a layout shift on every visit. */
+	flex-wrap: nowrap;
+}
+
+/* Narrow containers get a deterministic three row toolbar instead of a layout
+   that depends on how wide the theme font happens to render the labels. */
+@container ( max-width: 720px ) {
+	.xodw-cc__label {
+		flex-basis: 100%;
+		order: -1;
+	}
+
+	.xodw-cc__views {
+		flex-basis: 100%;
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+
+	.xodw-cc__views::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 .xodw-cc__btn {
@@ -626,9 +648,6 @@
 		justify-content: center;
 	}
 
-	.xodw-cc__label {
-		flex-basis: 100%;
-	}
 }
 
 @media ( prefers-reduced-motion: reduce ) {

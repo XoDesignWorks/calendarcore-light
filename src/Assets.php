@@ -46,6 +46,12 @@ class Assets {
 	public function register() {
 		wp_register_style( self::STYLE, XODW_CC_URL . 'assets/css/calendarcore.css', array(), XODW_CC_VERSION );
 
+		// Handing WordPress the file path lets it inline the stylesheet instead
+		// of costing a render blocking request: the whole sheet is smaller than
+		// the round trip that would fetch it. Core keeps its own size limit, so
+		// a site that raises the sheet stays on a normal <link>.
+		wp_style_add_data( self::STYLE, 'path', XODW_CC_DIR . 'assets/css/calendarcore.css' );
+
 		wp_register_script(
 			self::SCRIPT,
 			XODW_CC_URL . 'assets/js/calendarcore.js',
