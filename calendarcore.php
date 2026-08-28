@@ -54,6 +54,7 @@ spl_autoload_register( 'xodw_cc_autoload' );
 
 require_once XODW_CC_DIR . 'src/functions.php';
 
+
 register_activation_hook( __FILE__, array( 'XODW\CalendarCore\Install', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'XODW\CalendarCore\Install', 'deactivate' ) );
 

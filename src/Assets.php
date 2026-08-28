@@ -77,8 +77,12 @@ class Assets {
 			)
 		);
 
-		wp_set_script_translations( self::BLOCK_SCRIPT, 'calendarcore' );
-		wp_set_script_translations( self::SCRIPT, 'calendarcore' );
+		// The paid build ships its own catalogues; the free build falls back to
+		// the ones wordpress.org installs, which this path does not disturb.
+		$languages = XODW_CC_DIR . 'languages';
+
+		wp_set_script_translations( self::BLOCK_SCRIPT, 'calendarcore', $languages );
+		wp_set_script_translations( self::SCRIPT, 'calendarcore', $languages );
 	}
 
 	/**
