@@ -116,6 +116,7 @@ final class Plugin {
 			$classes['admin_meta']     = Admin\MetaBox::class;
 			$classes['admin_columns']  = Admin\Columns::class;
 			$classes['admin_settings'] = Admin\SettingsPage::class;
+			$classes['admin_import']   = Admin\ImportPage::class;
 			$classes['admin_upsell']   = Admin\Upsell::class;
 		}
 

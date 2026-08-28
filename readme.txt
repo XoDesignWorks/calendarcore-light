@@ -8,7 +8,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Fast event calendar with free recurring events, RSVP, .ics export and time zones. No jQuery, no bloated database tables.
+Fast event calendar with free recurring events, RSVP, .ics import and export, and time zones. No jQuery, no bloated database tables.
 
 == Description ==
 
@@ -22,6 +22,7 @@ The features other calendar plugins put behind a $99–$599 paywall are free her
 * **Four views** — month grid, week, day and event list, switching without a page reload.
 * **RSVP without payment** — attendee form, capacity limit, live counter, duplicate protection, honeypot and rate limiting. No spam, no captcha.
 * **Add to calendar** — one-click .ics download plus Google Calendar and Outlook links, and a subscribable feed of all your events.
+* **Import from any calendar** — upload an .ics file or paste a feed URL and the events land here: Google Calendar, Outlook, Apple Calendar, Meetup or another WordPress site. Repeating events keep their rule instead of arriving as hundreds of copies, and importing the same calendar again updates what it created before.
 * **Time zones done right** — every date is stored in UTC and shown in the visitor's own time zone, formatted in your site's language. Perfect for webinars and online classes. Switch it off in one click.
 * **Venues and organizers** — real taxonomies, so visitors can filter events by place or host, and each venue gets its own page.
 * **Two Gutenberg blocks** — *Event calendar* and *Event list*, rendered on the server so they keep working in block themes and after any editor update.
@@ -115,9 +116,9 @@ Yes. Enable RSVP on the event, set a capacity if you want one, and visitors can 
 
 No. CalendarCore is a calendar, not a shop: there is no payment processing in the free plugin.
 
-= Can I import an external calendar (.ics subscription)? =
+= Can I import events from another calendar? =
 
-Not yet. CalendarCore exports .ics and publishes a subscribable feed; importing external calendars is planned.
+Yes. Under **Events → Import** you can upload an .ics file or paste a feed URL, preview what would happen, and then import. Titles, descriptions, start and end times, timezones, all-day flags, repeat rules, skipped dates, venues and organizers all come across. Every imported event remembers its UID, so re-importing the same calendar updates those events instead of duplicating them. Automatic re-syncing on a schedule is not included: the import is a deliberate action you trigger.
 
 = Does it work with caching plugins? =
 
@@ -149,6 +150,7 @@ No. No tracking, no analytics, no remote fonts or scripts, no license check in t
 * Month, week, day and list views with no-reload navigation and a no-JavaScript fallback.
 * Time-zone aware display via `Intl.DateTimeFormat`.
 * .ics export per occurrence, calendar feed, Google Calendar and Outlook links.
+* .ics import from a file or a URL, with UID matching, recurrence rules and skipped dates.
 * RSVP with capacity, live counter, duplicate protection, honeypot and rate limiting.
 * Gutenberg blocks *Event calendar* and *Event list*, four shortcodes, optional Elementor widget.
 * Dark mode and `theme.json` colour inheritance.
