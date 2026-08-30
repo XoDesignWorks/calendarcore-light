@@ -8,7 +8,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Fast event calendar with free recurring events, RSVP, .ics import and export, and time zones. No jQuery, no bloated database tables.
+Fast event calendar: free recurring events, RSVP, .ics import and export, time zones. No jQuery, no bloat.
 
 == Description ==
 
