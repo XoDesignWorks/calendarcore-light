@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       CalendarCore – Event Calendar & Recurring Events
+ * Plugin Name:       CalendarCore — Event Calendar, Recurring Events & RSVP
  * Plugin URI:        https://xodesignworks.com/
- * Description:       Lightweight event calendar with free recurring events, RSVP, .ics export and time zones. No jQuery, no bloated database tables.
+ * Description:       Recurring events, RSVP, .ics import and export, timezone-aware times. Free, fast, no jQuery, no bloat.
  * Version:           1.0.0
  * Requires at least: 6.4
  * Requires PHP:      8.0
